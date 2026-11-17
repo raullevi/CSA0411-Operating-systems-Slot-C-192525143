@@ -1,0 +1,74 @@
+==========================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 5 PAGE REPLACEMENT EXPERIMENTS
+  Student: Rakul K | Register Number: 192525143
+  Date: Tue Nov 17 09:06:47 IST 2026
+==========================================================================
+
+[STEP 1] Building Q5 Page Replacement Programs...
+rm -f page_replacement_todo replacement_engine *.o *.csv *.svg
+gcc -std=c11 -Wall -Wextra -O2 page_replacement_todo.c -o page_replacement_todo
+gcc -std=c11 -Wall -Wextra -O2 replacement_engine.c -o replacement_engine
+
+[STEP 2] Running 'Complete the Code' Program (page_replacement_todo):
+3 frames: FIFO 15, LRU 12, Optimal 9
+4 frames: FIFO 10, LRU 8, Optimal 8
+Belady string, FIFO: 3 frames 9 faults, 4 frames 10 faults
+
+[STEP 3] Running Full Replacement Suite (FIFO, LRU, Clock, Optimal, 100k Benchmark):
+=======================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 5 PAGE-REPLACEMENT SUITE
+  Student: Rakul K | Register Number: 192525143
+=======================================================================
+
+=======================================================================
+  PART 1: VERIFICATION OF PROMPT REFERENCE STRING (20 REFERENCES)
+  String: 7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2, 1, 2, 0, 1, 7, 0, 1
+=======================================================================
+Frames   FIFO         LRU          Clock        Optimal     
+-----------------------------------------------------------------------
+3        15           12           14           9           
+4        10           8            9            8           
+-----------------------------------------------------------------------
+
+Bélády's Anomaly Evaluation for String: 1, 2, 3, 4, 1, 2, 5, 1, 2, 3, 4, 5
+  - FIFO with 3 frames: 9 page faults
+  - FIFO with 4 frames: 10 page faults [ANOMALY OBSERVED: More frames -> MORE faults!]
+  - LRU with 3 frames : 10 page faults
+  - LRU with 4 frames : 8 page faults [NO ANOMALY: Stack Property Enforced]
+
+=======================================================================
+  PART 2: WORKLOAD SIMULATION ACROSS FRAMES 3 TO 10 (1,000 REFERENCES)
+=======================================================================
+A. Workload with Strong Locality (80/20 Web Server Access Pattern):
+Frames   FIFO         LRU          Clock        Optimal     
+-----------------------------------------------------------------------
+3        635          618          635          417         
+4        541          496          531          307         
+5        469          393          440          236         
+6        402          325          361          190         
+7        343          268          307          161         
+8        310          216          266          138         
+9        281          190          220          121         
+10       256          174          201          108         
+-----------------------------------------------------------------------
+
+=======================================================================
+  PART 3: HIGH-SCALE RUNTIME BENCHMARK (100,000 REFERENCES, 8 FRAMES)
+=======================================================================
+Algorithm          Page Faults      Fault Rate (%)   Run Time (ms)     
+-------------------------------------------------------------------------
+FIFO               55036            55.04            0.88              
+LRU (Exact)        51574            51.57            1.15              
+Clock (2nd-Chance) 53453            53.45            1.57              
+Optimal (MIN)      Lowest Bound     Theoretical      7.29               (Projected)
+-------------------------------------------------------------------------
+Key Result: Clock achieves within 1% - 2% of exact LRU fault rate while
+avoiding expensive timestamp maintenance or associative search overhead!
+
+
+[STEP 4] Generating Comparative Faults vs Frames SVG Plot:
+Generated page replacement SVG at page_replacement_workload.svg
+
+==========================================================================
+  QUESTION 5 EXPERIMENTS COMPLETED SUCCESSFULLY!
+==========================================================================
