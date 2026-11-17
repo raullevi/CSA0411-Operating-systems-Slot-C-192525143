@@ -1,0 +1,145 @@
+==========================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 2 PAGING EXPERIMENTS
+  Student: Rakul K | Register Number: 192525143
+  Date: Tue Nov 17 09:00:38 IST 2026
+==========================================================================
+
+[STEP 1] Building Q2 Programs (paging_todo and paging_sim)...
+rm -f paging_todo paging_sim *.o
+gcc -std=c11 -Wall -Wextra -O2 paging_todo.c -o paging_todo
+gcc -std=c11 -Wall -Wextra -O2 paging_sim.c -o paging_sim
+
+[STEP 2] Running 'Complete the Code' Program (paging_todo):
+CSA0411 OS Assignment 3 - Question 2: Complete the Code
+Student: Rakul K | Register Number: 192525143
+
+===============================================================
+  Paging Translation Test: Part 1 (Prompt Default) (PAGE_SIZE = 1024, PAGES = 8)
+===============================================================
+Page Table Mapping:
+  Page 0 -> Frame 5
+  Page 1 -> Frame 2
+  Page 2 -> [NOT IN MEMORY / INVALID]
+  Page 3 -> Frame 7
+  Page 4 -> Frame 0
+  Page 5 -> [NOT IN MEMORY / INVALID]
+  Page 6 -> Frame 3
+  Page 7 -> [NOT IN MEMORY / INVALID]
+---------------------------------------------------------------
+0 -> page 0 offset 0 : physical 5120
+1500 -> page 1 offset 476 : physical 2524
+3100 -> page 3 offset 28 : physical 7196
+6200 -> page 6 offset 56 : physical 3128
+9000 -> page 8 offset 808 : invalid address
+2049 -> page 2 offset 1 : page fault
+
+===============================================================
+  Paging Translation Test: Part 2 (Recalculated with PAGE_SIZE = 2048) (PAGE_SIZE = 2048, PAGES = 8)
+===============================================================
+Page Table Mapping:
+  Page 0 -> Frame 5
+  Page 1 -> Frame 2
+  Page 2 -> [NOT IN MEMORY / INVALID]
+  Page 3 -> Frame 7
+  Page 4 -> Frame 0
+  Page 5 -> [NOT IN MEMORY / INVALID]
+  Page 6 -> Frame 3
+  Page 7 -> [NOT IN MEMORY / INVALID]
+---------------------------------------------------------------
+0 -> page 0 offset 0 : physical 10240
+1500 -> page 0 offset 1500 : physical 11740
+3100 -> page 1 offset 1052 : physical 5148
+6200 -> page 3 offset 56 : physical 14392
+9000 -> page 4 offset 808 : physical 808
+2049 -> page 1 offset 1 : physical 4097
+
+
+[STEP 3] Running Multi-User College Server Simulation (paging_sim):
+==================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 2 PAGING SIMULATOR
+  Student: Rakul K | Register Number: 192525143
+==================================================================
+
+==================================================================
+  1. INTERNAL FRAGMENTATION SIMULATION (100 PROCESS WORKLOAD)
+==================================================================
+Generated 100 student processes (Size range: 1 KB to 513 KB).
+Total memory requested by processes: 27.90 MB (29253870 bytes)
+
+Page Size                    Allocated RAM    Wasted (Frag)    Avg Frag/Proc    Wastage %%    
+----------------------------------------------------------------------------------------
+1 KB (Small)                        27.94 MB         0.04 MB         0.45 KB         0.16%
+4 KB (Standard Linux/POSIX)         28.10 MB         0.20 MB         2.08 KB         0.72%
+2 MB (Huge Pages)                  200.00 MB       172.10 MB      1762.32 KB        86.05%
+----------------------------------------------------------------------------------------
+Analysis: 1 KB minimizes internal fragmentation (0.2% waste). 4 KB is the industry sweet
+spot (0.8% waste). 2 MB causes massive catastrophic fragmentation (88.4% waste) for
+small student programs because each 20 KB script requires an entire 2 MB frame!
+
+==================================================================
+  2. EFFECTIVE MEMORY ACCESS TIME (EMAT) WITH & WITHOUT TLB
+==================================================================
+Given System Parameters:
+  - Main Memory Access Time (t_mem) = 100.0 ns
+  - TLB Associative Lookup (t_tlb)  = 10.0 ns
+
+A. WITHOUT TLB (Single-Level Paging):
+   Every memory access requires 2 physical accesses:
+   1 for Page Table entry + 1 for actual Data = 2 * 100.0 ns = 200.0 ns
+
+B. WITH TLB (Single-Level Paging Formula):
+   EMAT = h * (t_tlb + t_mem) + (1 - h) * (t_tlb + 2 * t_mem)
+
+TLB Hit Rate    Formula Calculation       EMAT (ns)            Speedup vs No-TLB
+----------------------------------------------------------------------------
+80             % 0.80*(110) + 0.20*(210)         130.00 ns          1.54x
+95             % 0.95*(110) + 0.05*(210)         115.00 ns          1.74x
+99             % 0.99*(110) + 0.01*(210)         111.00 ns          1.80x
+----------------------------------------------------------------------------
+
+==================================================================
+  3. EXPERIMENTAL PAGE BOUNDARY ACCESS & VIOLATION TEST
+==================================================================
+Host Operating System Reported Page Size: 16384 bytes (16.0 KB)
+Allocated 1 page (Address Range: 0x104b6c000 to 0x104b6ffff)
+
+Test 1: Writing to START of page (offset 0): SUCCESS (Readback: 'S')
+Test 2: Writing to END of page (offset 16383): SUCCESS (Readback: 'E')
+Test 3: Accessing address BEYOND the page boundary (offset 16384):
+        Setting up SIGSEGV signal interceptor...
+        [INTERCEPTED] Hardware Page Fault / SIGSEGV Trap triggered successfully!
+        The MMU detected that address 0x104b70000 is outside the process's mapped page table.
+
+==================================================================
+  4. SYSTEM PAGE FAULT MEASUREMENT (getrusage)
+==================================================================
+  - Minor Page Faults (Soft Faults / Frame Reclaims) : 324
+  - Major Page Faults (Hard Faults / Disk I/O Reads) : 1
+  - Maximum Resident Set Size (RSS)                  : 1664 KB
+==================================================================
+
+[STEP 4] System Environment Page Size and Measurement:
+Operating System getconf PAGESIZE: 16384
+Operating System pagesize command: 16384
+
+[STEP 5] Timing and Page Fault Measurement of Execution (/usr/bin/time):
+0 -> page 0 offset 0 : physical 5120
+1500 -> page 1 offset 476 : physical 2524
+3100 -> page 3 offset 28 : physical 7196
+6200 -> page 6 offset 56 : physical 3128
+9000 -> page 8 offset 808 : invalid address
+2049 -> page 2 offset 1 : page fault
+0 -> page 0 offset 0 : physical 10240
+1500 -> page 0 offset 1500 : physical 11740
+3100 -> page 1 offset 1052 : physical 5148
+6200 -> page 3 offset 56 : physical 14392
+9000 -> page 4 offset 808 : physical 808
+2049 -> page 1 offset 1 : physical 4097
+        0.00 real         0.00 user         0.00 sys
+             1687552  maximum resident set size
+                 287  page reclaims
+                   1  page faults
+
+==========================================================================
+  QUESTION 2 EXPERIMENTS COMPLETED SUCCESSFULLY!
+==========================================================================
