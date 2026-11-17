@@ -1,0 +1,9 @@
+*.o
+*.a
+*.so
+*.dylib
+*.out
+bank_app_static
+bank_app_dynamic
+bank_app_dlopen
+.DS_Store
