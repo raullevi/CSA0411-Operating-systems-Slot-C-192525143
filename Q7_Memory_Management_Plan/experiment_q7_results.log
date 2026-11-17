@@ -1,0 +1,105 @@
+==========================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 7 MEMORY MANAGEMENT DESIGN EXPERIMENTS
+  Student: Rakul K | Register Number: 192525143
+  Date: Tue Nov 17 16:57:39 IST 2026
+==========================================================================
+
+[STEP 1] Building Q7 Real-Time and Edge Architecture Programs...
+rm -f rt_memory_lock_benchmark edge_device_memory_sim *.o
+gcc -std=c11 -Wall -Wextra -O2 rt_memory_lock_benchmark.c -o rt_memory_lock_benchmark
+gcc -std=c11 -Wall -Wextra -O2 edge_device_memory_sim.c -o edge_device_memory_sim
+
+[STEP 2] Running Real-Time Memory Locking Benchmark (Unlocked vs mlock):
+=======================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 7: REAL-TIME MEMORY LOCKING
+  Student: Rakul K | Register Number: 192525143
+=======================================================================
+
+Real-Time Control Loop Configuration:
+  - System Page Size   : 16384 bytes (16.0 KB)
+  - Control Buffer Size: 4194304 bytes (256 pages)
+  - Test Iterations    : 1000 cycles
+
+-----------------------------------------------------------------------
+  TEST 1: UNLOCKED MEMORY (Subject to Page Faults & Jitter)
+-----------------------------------------------------------------------
+  - Page Faults Incurred : 0
+  - Average Loop Latency : 21.00 ns
+  - Minimum Latency      : 0.00 ns
+  - Worst-Case Latency   : 1000.00 ns (1.0000 us)
+  - Latency Jitter (Max-Min): 1000.00 ns
+
+-----------------------------------------------------------------------
+  TEST 2: LOCKED MEMORY (mlockall / mlock - Zero Faults, Deterministic)
+-----------------------------------------------------------------------
+  - Page Faults Incurred : 0 [ZERO FAULTS VERIFIED]
+  - Average Loop Latency : 49.00 ns
+  - Minimum Latency      : 0.00 ns
+  - Worst-Case Latency   : 1000.00 ns (1.0000 us)
+  - Latency Jitter (Max-Min): 1000.00 ns
+  - Real-Time Jitter Improvement: 1.00x more predictable!
+=======================================================================
+
+[STEP 3] Running 3-Task Edge Device Memory Simulator & 4th-Task Analysis:
+=======================================================================
+  STAGE 3: SIMULATING 3-TASK MEMORY MANAGEMENT (2 GB EDGE DEVICE)
+=======================================================================
+Total Physical RAM Installed: 2048 MB (2.0 GB)
+Linux Kernel & Drivers Res  : 128 MB
+Available for Factory Apps  : 1920 MB
+
+Task Name                    RAM (MB)     Category         Locked?    Can Fault?    
+---------------------------------------------------------------------------------
+Real-Time Actuator Control          128 MB Hard Real-Time   YES (mlock) ZERO FAULTS   
+Defect Detection ML Model          1536 MB Best Effort      NO         Tolerates     
+Factory Telemetry Logger             64 MB Low Priority     NO         Tolerates     
+---------------------------------------------------------------------------------
+Total Active System Memory Budget: 1856 MB / 2048 MB (90.6% Allocated)
+Free Memory Headroom (Buffer)   : 192 MB (Safety Margin: SAFE)
+
+Simulating 10,000 factory cycles under heavy ML inference churn...
+  [VERIFICATION RESULT]:
+  - Real-Time Control Task Faults    : 0 (PINNED IN RAM)
+  - Real-Time Control Deadline Misses: 0 (100% DETERMINISM)
+  - Machine Learning Minor Faults    : 482 (Absorbed by best-effort queue)
+  - Telemetry Logger Minor Faults    : 18 (Non-blocking I/O)
+
+=======================================================================
+  STAGE 4: DEFENDING THE DESIGN — ADDING 4TH TASK (500 MB)
+=======================================================================
+Memory Budget Analysis upon adding Fourth 500 MB Task:
+  - Current Memory In Use  : 1856 MB
+  - Added Task Requirement : 500 MB
+  - Total Requested Memory : 2356 MB
+  - Physical RAM Available : 2048 MB (NO SWAP DISK PRESENT)
+  - Memory Deficit / Overcommit: -308 MB (308 MB DEFICIT!)
+
+OUTCOME WITHOUT ARCHITECTURAL ADJUSTMENT:
+  CRITICAL SYSTEM FAILURE: The Linux Out-Of-Memory (OOM) Killer triggers!
+  Without swap, the kernel has zero eviction backing store.
+  If badness heuristic kills the ML or Real-Time process, factory shuts down.
+
+=======================================================================
+  ARCHITECTURAL MITIGATION STRATEGIES FOR THE 4TH TASK
+=======================================================================
+Option 1: In-Memory Compressed Swap (zram with LZ4 / Zstandard):
+  - Allocate 512 MB of physical RAM for zram virtual swap device.
+  - Yields ~1280 MB of effective uncompressed memory at 2.5:1 compression.
+  - Net memory expansion: +307 MB (Accommodates the 500 MB task without disk I/O)!
+
+Option 2: Model Quantization & Pruning (FP32 -> INT8 TensorRT/TFLite):
+  - The 1.5 GB defect detection model is quantized from FP32 (4 bytes) to INT8 (1 byte).
+  - Reduced ML Model Footprint: 1,536 MB -> 384 MB (Saves 1,152 MB of RAM!).
+  - New Total System Usage:
+    128 (OS) + 128 (RT) + 384 (ML) + 64 (Log) + 500 (Task 4) = 1204 MB / 2048 MB.
+    Physical RAM Utilization: 58.8% (592 MB Safety Headroom Remaining)!
+
+System Limitation Identified:
+  Because the edge device has no secondary flash swap disk, memory is strictly
+  finite. A hard hardware constraint exists: memory leaks in best-effort
+  tasks must be strictly policed with Linux cgroups (memory.max).
+=======================================================================
+
+==========================================================================
+  QUESTION 7 EXPERIMENTS COMPLETED SUCCESSFULLY!
+==========================================================================
