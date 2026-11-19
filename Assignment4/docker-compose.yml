@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  os-assignment4:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: csa0411_assignment4_runner
+    volumes:
+      - .:/workspace
+    command: /bin/bash -c "./run_all_tasks.sh"

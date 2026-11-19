@@ -1,0 +1,37 @@
+==========================================================
+1. VERIFICATION OF COMPLETE THE CODE (DISK SCHEDULING)
+==========================================================
+FCFS   53 98 183 37 122 14 124 65 67 -> 640 cylinders
+SSTF   53 65 67 37 14 98 122 124 183 -> 236 cylinders
+SCAN   53 37 14 0 65 67 98 122 124 183 -> 236 cylinders
+C-SCAN 53 65 67 98 122 124 183 199, jump to 0 14 37 -> 183 cylinders (+199 for the jump)
+
+==========================================================
+2. EXTENDED DISK SIMULATION & STARVATION ANALYSIS
+==========================================================
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 4 (CO4)
+  Task 04: Disk Scheduling Suite & SSTF Starvation Evaluation
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+--- SSTF Starvation Experiment ---
+Initial pending request at cylinder 183. Stream of requests arriving near cylinder 60...
+Serviced 50 requests near cylinder 60. Request at 183 was starved and NEVER served!
+Conclusion: SSTF exhibits severe starvation under continuous localized arrival.
+
+Disk Scheduling Policy Comparison for Queue {98, 183, 37, 122, 14, 124, 65, 67} (Head=53):
+----------------------------------------------------------------------------------
+Algorithm  | Order of Service                              | Total Head Movement
+----------------------------------------------------------------------------------
+FCFS       | 53 98 183 37 122 14 124 65 67                 | 640 cylinders   
+SSTF       | 53 65 67 37 14 98 122 124 183                 | 236 cylinders   
+SCAN       | 53 37 14 0 65 67 98 122 124 183               | 236 cylinders   
+C-SCAN     | 53 65 67 98 122 124 183 199 (0) 14 37         | 382 cylinders (incl jump)
+LOOK       | 53 37 14 65 67 98 122 124 183                 | 208 cylinders   
+C-LOOK     | 53 65 67 98 122 124 183 (14) 37               | 322 cylinders (incl jump)
+----------------------------------------------------------------------------------
+
+Solid-State Drives (SSDs) Scheduling:
+- Linux uses 'none' (noop) or 'mq-deadline' because SSDs have 0 mechanical seek delay.
+- Elevating requests by cylinder number on flash storage is unnecessary and adds CPU lock contention.

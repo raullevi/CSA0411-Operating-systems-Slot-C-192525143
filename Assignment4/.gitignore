@@ -1,0 +1,21 @@
+# Binaries and build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dSYM/
+*.out
+*.app
+
+# Executables
+file_alloc_todo
+disk_sched_todo
+disk_sim_suite
+video_storage_sim
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes

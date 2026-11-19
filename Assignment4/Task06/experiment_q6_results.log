@@ -1,0 +1,22 @@
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 4 (CO4)
+  Task 06: Video Streaming Storage Architecture Simulation
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+Simulating 100000 video seek requests from 200,000 students across 500 lecture videos...
+
+Benchmark Simulation Results:
+----------------------------------------------------------------------------------
+Metric / Measurement           | Design A (HDD Only)   | Design B (Tiered NVMe + HDD)
+----------------------------------------------------------------------------------
+Total Stream Requests Served   | 100000                | 100000               
+NVMe Cache Hit Rate            | 0.00% (No SSD Cache)  | 80.12% (80/20 Rule Working)
+Average Playback Start Latency |    8.50 ms             |    1.73 ms (Speedup: 4.9x)
+Max Concurrent Streams / Server| ~120 streams (Head I/O)| ~8,500 streams (PCIe NVMe)
+----------------------------------------------------------------------------------
+
+Key Architectural Insights:
+1. Design B achieves a 4.9x reduction in video start latency by serving 80% traffic from NVMe.
+2. Chunking videos into 2-second HLS/DASH fragments (1 MB blocks) enables instant time-seeking.
+3. Caching hot week-1 lecture videos on SSD eliminates mechanical HDD head thrashing.
