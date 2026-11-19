@@ -1,0 +1,29 @@
+# Binaries and build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dSYM/
+*.out
+*.app
+
+# Executables
+process_tree_sim
+cpu_scheduling_todo
+cpu_scheduler_suite
+camera_threads
+pipe_ipc_todo
+ipc_comparison_bench
+sync_todo
+railway_booking_sim
+bankers_todo
+bankers_scale_bench
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

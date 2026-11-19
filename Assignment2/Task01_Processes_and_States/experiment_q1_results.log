@@ -1,0 +1,34 @@
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 2 (CO2)
+  Task 01: Processes & Process States (Online Exam Server Simulation)
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+Main Server Daemon (Parent) started with PID: 12143
+Spawning simulated examination sessions with fork()...
+
+
+--- Process Table Snapshot via 'ps' (Parent PID: 12143) ---
+12143 12116 S+   ./process_tree_sim
+12145 12143 S+   ./process_tree_sim
+12146 12143 S+   ./process_tree_sim
+12147 12143 S+   ./process_tree_sim
+12148 12143 S+   ./process_tree_sim
+12149 12143 S+   sh
+--------------------------------------------------------------------
+
+Collecting child processes to prevent zombies...
+[Server] Child PID 12145 reaped successfully with exit code 10.
+[Server] Child PID 12146 reaped successfully with exit code 20.
+[Server] Child PID 12147 reaped successfully with exit code 30.
+[Server] Child PID 12148 reaped successfully with exit code 40.
+--- Microbenchmark: Process Creation Overhead (N = 500 forks) ---
+Total time for 500 forks: 0.4434 seconds
+Average process fork + teardown cost: 886.90 microseconds per process
+Estimated memory page table allocation & copy overhead: ~8.19 KB per PCB
+Evaluation for 2,000 concurrent student processes:
+  * Total fork overhead: 1773.79 ms
+  * Estimated kernel PCB + stack allocation: ~15 MB RAM
+--------------------------------------------------------------------
+
+[Task 01 Complete] Process state transitions, PCB management, and fork scalability verified.

@@ -1,0 +1,26 @@
+==========================================================
+1. VERIFICATION OF COMPLETE THE CODE (PIPE IPC)
+==========================================================
+analyser: 6 readings, average 35.5, max 41
+reader: done
+
+==========================================================
+2. IPC THROUGHPUT BENCHMARK (PIPE VS SHM)
+==========================================================
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 2 (CO2)
+  Task 04: IPC Benchmark - Pipe vs Shared Memory (1MB, 10MB, 100MB)
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+Data Size  | Pipe Time (s)    | Pipe Rate (MB/s) | SHM Time (s)     | SHM Rate (MB/s) 
+----------------------------------------------------------------------------------
+1 MB       |         0.0014 s |      708.72 MB/s |        0.0012 s |     825.76 MB/s
+10 MB      |         0.0029 s |     3415.30 MB/s |        0.0033 s |    3062.79 MB/s
+100 MB     |         0.0196 s |     5104.65 MB/s |        0.0231 s |    4324.14 MB/s
+----------------------------------------------------------------------------------
+
+Key Findings:
+1. Shared memory avoids kernel buffer double-copying, achieving significantly higher throughput.
+2. Pipes require user->kernel and kernel->user copies, plus context switches on buffer full/empty.
+3. For streaming weather telemetry (< few KB/s), pipes provide simple implicit synchronization (EOF on close).

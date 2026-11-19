@@ -1,0 +1,170 @@
+==========================================================
+1. VERIFICATION OF COMPLETE THE CODE (EXACT PDF MATCH)
+==========================================================
+Gantt: P1(0-3) P2(3-6) P3(6-9) P4(9-12) P1(12-15) P2(15-16) P3(16-19) P4(19-21) P1(21-23) P3(23-26)
+Process   TAT   WT
+P1        23  15
+P2        15  11
+P3        24  15
+P4        18  13
+Average TAT = 20.00, average WT = 13.50
+
+==========================================================
+2. FULL SCHEDULING SUITE & QUANTUM STUDY
+==========================================================
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 2 (CO2)
+  Task 02: CPU Scheduling Comprehensive Suite & Quantum Study
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+Dataset Specifications (Cloud Video-Encoding Simulation):
+  P1: Arrival=0, Burst=8  (Video Clip Transcode, Priority 3)
+  P2: Arrival=1, Burst=4  (Thumbnail Generation, Priority 1 - High)
+  P3: Arrival=2, Burst=9  (Feature Film Encode, Priority 4 - Low)
+  P4: Arrival=3, Burst=5  (Trailer Re-mux, Priority 2)
+
+
+Gantt [FCFS]: P1(0-8) P2(8-12) P3(12-21) P4(21-26)
+
+----------------------------------------------------------------------
+Algorithm: First-Come, First-Served (FCFS)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       8       8       0       0      
+P2      1       4       12      11      7       7      
+P3      2       9       21      19      10      10     
+P4      3       5       26      23      18      18     
+Average Turnaround Time (TAT) = 15.25
+Average Waiting Time (WT)    = 8.75
+Average Response Time (RT)   = 8.75
+Total Context Switches       = 3
+----------------------------------------------------------------------
+
+Gantt [Non-preemptive SJF]: P1(0-8) P2(8-12) P4(12-17) P3(17-26)
+
+----------------------------------------------------------------------
+Algorithm: Non-Preemptive Shortest Job First (SJF)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       8       8       0       0      
+P2      1       4       12      11      7       7      
+P3      2       9       26      24      15      15     
+P4      3       5       17      14      9       9      
+Average Turnaround Time (TAT) = 14.25
+Average Waiting Time (WT)    = 7.75
+Average Response Time (RT)   = 7.75
+Total Context Switches       = 3
+----------------------------------------------------------------------
+
+Gantt [SRTF]: P1(0-1) P2(1-5) P4(5-10) P1(10-17) P3(17-26)
+
+----------------------------------------------------------------------
+Algorithm: Shortest Remaining Time First (SRTF)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       17      17      9       0      
+P2      1       4       5       4       0       0      
+P3      2       9       26      24      15      15     
+P4      3       5       10      7       2       2      
+Average Turnaround Time (TAT) = 13.00
+Average Waiting Time (WT)    = 6.50
+Average Response Time (RT)   = 4.25
+Total Context Switches       = 1
+----------------------------------------------------------------------
+
+Gantt [Priority]: P1(0-8) P2(8-12) P4(12-17) P3(17-26)
+
+----------------------------------------------------------------------
+Algorithm: Priority Scheduling (Non-Preemptive)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       8       8       0       0      
+P2      1       4       12      11      7       7      
+P3      2       9       26      24      15      15     
+P4      3       5       17      14      9       9      
+Average Turnaround Time (TAT) = 14.25
+Average Waiting Time (WT)    = 7.75
+Average Response Time (RT)   = 7.75
+Total Context Switches       = 3
+----------------------------------------------------------------------
+
+Gantt [Round Robin (Quantum = 1)]: P1(0-1) P2(1-2) P1(2-3) P3(3-4) P2(4-5) P4(5-6) P1(6-7) P3(7-8) P2(8-9) P4(9-10) P1(10-11) P3(11-12) P2(12-13) P4(13-14) P1(14-15) P3(15-16) P4(16-17) P1(17-18) P3(18-19) P4(19-20) P1(20-21) P3(21-22) P1(22-23) P3(23-24) P3(24-25) P3(25-26)
+
+----------------------------------------------------------------------
+Algorithm: Round Robin (Quantum = 1)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       23      23      15      0      
+P2      1       4       13      12      8       0      
+P3      2       9       26      24      15      1      
+P4      3       5       20      17      12      2      
+Average Turnaround Time (TAT) = 19.00
+Average Waiting Time (WT)    = 12.50
+Average Response Time (RT)   = 0.75
+Total Context Switches       = 25
+----------------------------------------------------------------------
+
+Gantt [Round Robin (Quantum = 3)]: P1(0-3) P2(3-6) P3(6-9) P4(9-12) P1(12-15) P2(15-16) P3(16-19) P4(19-21) P1(21-23) P3(23-26)
+
+----------------------------------------------------------------------
+Algorithm: Round Robin (Quantum = 3)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       23      23      15      0      
+P2      1       4       16      15      11      2      
+P3      2       9       26      24      15      4      
+P4      3       5       21      18      13      6      
+Average Turnaround Time (TAT) = 20.00
+Average Waiting Time (WT)    = 13.50
+Average Response Time (RT)   = 3.00
+Total Context Switches       = 9
+----------------------------------------------------------------------
+
+Gantt [Round Robin (Quantum = 5)]: P1(0-5) P2(5-9) P3(9-14) P4(14-19) P1(19-22) P3(22-26)
+
+----------------------------------------------------------------------
+Algorithm: Round Robin (Quantum = 5)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       22      22      14      0      
+P2      1       4       9       8       4       4      
+P3      2       9       26      24      15      7      
+P4      3       5       19      16      11      11     
+Average Turnaround Time (TAT) = 17.50
+Average Waiting Time (WT)    = 11.00
+Average Response Time (RT)   = 5.50
+Total Context Switches       = 5
+----------------------------------------------------------------------
+
+Gantt [Round Robin (Quantum = 20)]: P1(0-8) P2(8-12) P3(12-21) P4(21-26)
+
+----------------------------------------------------------------------
+Algorithm: Round Robin (Quantum = 20)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       8       8       0       0      
+P2      1       4       12      11      7       7      
+P3      2       9       21      19      10      10     
+P4      3       5       26      23      18      18     
+Average Turnaround Time (TAT) = 15.25
+Average Waiting Time (WT)    = 8.75
+Average Response Time (RT)   = 8.75
+Total Context Switches       = 3
+----------------------------------------------------------------------
+
+Gantt [MLFQ: Q0(q=2), Q1(q=6), Q2(FCFS)]: P1[Q0](0-2) P2[Q0](2-4) P3[Q0](4-6) P4[Q0](6-8) P1[Q1](8-14) P2[Q1](14-16) P3[Q1](16-22) P4[Q1](22-25) P3[Q2](25-26)
+
+----------------------------------------------------------------------
+Algorithm: Multilevel Feedback Queue (MLFQ)
+----------------------------------------------------------------------
+Process Arrival Burst   Finish  TAT     WT      RT     
+P1      0       8       14      14      6       0      
+P2      1       4       16      15      11      1      
+P3      2       9       26      24      15      2      
+P4      3       5       25      22      17      3      
+Average Turnaround Time (TAT) = 18.75
+Average Waiting Time (WT)    = 12.25
+Average Response Time (RT)   = 1.50
+Total Context Switches       = 9
+----------------------------------------------------------------------

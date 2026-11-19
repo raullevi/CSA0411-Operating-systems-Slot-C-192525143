@@ -1,0 +1,26 @@
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 2 (CO2)
+  Task 03: POSIX Threads - Traffic-Camera Plate Reader
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+Workload: 64 cameras, 1000 frames each (64000 total frames)
+
+1. Benchmarking Concurrency Models and Speedups...
+----------------------------------------------------------------------
+Sequential (1 Thread)          : Time =   0.0001 s | Speedup = 1.00x (Baseline)
+Thread Pool (4 Workers)        : Time =   0.0001 s | Speedup =  2.11x
+Thread Pool (8 Workers)        : Time =   0.0001 s | Speedup =  1.40x
+Thread Pool (16 Workers)       : Time =   0.0003 s | Speedup =  0.49x
+One-Thread-per-Camera (64 Thds): Time =   0.0009 s | Speedup =  0.16x
+----------------------------------------------------------------------
+
+2. Demonstrating Race Conditions on Shared Counters (64 Concurrent Threads)...
+----------------------------------------------------------------------
+Expected Total Plate Counts   : 64000
+Unprotected Counter Result    : 63897 (LOST UPDATES: 103, Error: 0.16%)
+Mutex-Protected Counter Result: 64000 (100% Accurate)
+Atomic Counter Result (C11)   : 64000 (100% Accurate)
+----------------------------------------------------------------------
+
+[Task 03 Complete] Thread performance, pool scaling, and race conditions evaluated.

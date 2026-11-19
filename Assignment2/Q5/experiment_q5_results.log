@@ -1,0 +1,36 @@
+==========================================================
+1. VERIFICATION OF COMPLETE THE CODE (BOUNDED BUFFER)
+==========================================================
+items consumed: 20, sum = 210 (expected 210)
+
+==========================================================
+2. 100-RUN DETERMINISM VERIFICATION
+==========================================================
+Verification Passed: 100/100 runs produced exact expected sum 210 with zero race conditions!
+
+==========================================================
+3. RAILWAY LOCKING GRANULARITY & PRIMITIVES BENCHMARK
+==========================================================
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 2 (CO2)
+  Task 05: Synchronization Primitives & Railway Ticket Booking Sim
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+1. Railway Booking Locking Granularity Benchmark (200000 Transactions, 8 Threads):
+----------------------------------------------------------------------------------
+Policy A: 1 Global Lock for System : Time =  0.0169 s | Throughput = 11855364.6 ops/s
+Policy B: 1 Lock per Train (10 locks): Time =  0.0123 s | Throughput = 16299918.4 ops/s (Speedup: 1.37x)
+Policy C: 1 Lock per Coach (100 locks): Time =  0.0073 s | Throughput = 27273967.2 ops/s (Speedup: 2.30x)
+----------------------------------------------------------------------------------
+
+2. Microbenchmark: Synchronization Primitives under Contention (Total Ops: 500,000):
+----------------------------------------------------------------------------------
+Threads      | Mutex Time (s)   | Spinlock Time (s) | Atomic Time (s) 
+----------------------------------------------------------------------------------
+1            |         0.0040 s |         0.0011 s |         0.0017 s
+4            |         0.0562 s |         0.0283 s |         0.0062 s
+16           |         0.0100 s |         0.3893 s |         0.0143 s
+----------------------------------------------------------------------------------
+
+[Task 05 Complete] Locking granularities and synchronization primitives evaluated.
