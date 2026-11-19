@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" width="700" height="420" style="background:#ffffff; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <rect width="700" height="420" fill="#f8fafc" rx="8" />
+  <text x="350.0" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#0f172a">Medical Imaging: Page Faults vs. Allocated Frames (Working Set Curve)</text>
+  
+  <!-- Grid Lines -->
+  <line x1="80" y1="360.0" x2="660" y2="360.0" stroke="#e2e8f0" stroke-width="1" />
+  <text x="70" y="364.0" text-anchor="end" font-size="12" fill="#64748b">0</text>
+  <line x1="80" y1="282.5" x2="660" y2="282.5" stroke="#e2e8f0" stroke-width="1" />
+  <text x="70" y="286.5" text-anchor="end" font-size="12" fill="#64748b">10</text>
+  <line x1="80" y1="205.0" x2="660" y2="205.0" stroke="#e2e8f0" stroke-width="1" />
+  <text x="70" y="209.0" text-anchor="end" font-size="12" fill="#64748b">20</text>
+  <line x1="80" y1="127.5" x2="660" y2="127.5" stroke="#e2e8f0" stroke-width="1" />
+  <text x="70" y="131.5" text-anchor="end" font-size="12" fill="#64748b">30</text>
+  <line x1="80" y1="50.0" x2="660" y2="50.0" stroke="#e2e8f0" stroke-width="1" />
+  <text x="70" y="54.0" text-anchor="end" font-size="12" fill="#64748b">40</text>
+  <line x1="80.0" y1="50" x2="80.0" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="80.0" y="378" text-anchor="middle" font-size="12" fill="#64748b">1</text>
+  <line x1="144.44444444444446" y1="50" x2="144.44444444444446" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="144.44444444444446" y="378" text-anchor="middle" font-size="12" fill="#64748b">2</text>
+  <line x1="208.88888888888889" y1="50" x2="208.88888888888889" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="208.88888888888889" y="378" text-anchor="middle" font-size="12" fill="#64748b">3</text>
+  <line x1="273.3333333333333" y1="50" x2="273.3333333333333" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="273.3333333333333" y="378" text-anchor="middle" font-size="12" fill="#64748b">4</text>
+  <line x1="337.77777777777777" y1="50" x2="337.77777777777777" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="337.77777777777777" y="378" text-anchor="middle" font-size="12" fill="#64748b">5</text>
+  <line x1="402.22222222222223" y1="50" x2="402.22222222222223" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="402.22222222222223" y="378" text-anchor="middle" font-size="12" fill="#64748b">6</text>
+  <line x1="466.66666666666663" y1="50" x2="466.66666666666663" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="466.66666666666663" y="378" text-anchor="middle" font-size="12" fill="#64748b">7</text>
+  <line x1="531.1111111111111" y1="50" x2="531.1111111111111" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="531.1111111111111" y="378" text-anchor="middle" font-size="12" fill="#64748b">8</text>
+  <line x1="595.5555555555555" y1="50" x2="595.5555555555555" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="595.5555555555555" y="378" text-anchor="middle" font-size="12" fill="#64748b">9</text>
+  <line x1="660.0" y1="50" x2="660.0" y2="360" stroke="#e2e8f0" stroke-width="1" />
+  <text x="660.0" y="378" text-anchor="middle" font-size="12" fill="#64748b">10</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="360" x2="660" y2="360" stroke="#334155" stroke-width="2" />
+  <line x1="80" y1="50" x2="80" y2="360" stroke="#334155" stroke-width="2" />
+  
+  <text x="350.0" y="405" text-anchor="middle" font-size="13" font-weight="600" fill="#334155">Allocated Physical Frames (RAM Capacity)</text>
+  <text x="25" y="210.0" text-anchor="middle" font-size="13" font-weight="600" fill="#334155" transform="rotate(-90 25 210.0)">Page Fault Count</text>
+
+  <!-- Curve -->
+  <path d="M 80.0,81.0 L 144.4,81.0 L 208.9,104.2 L 273.3,96.5 L 337.8,150.8 L 402.2,174.0 L 466.7,174.0 L 531.1,174.0 L 595.6,174.0 L 660.0,282.5" fill="none" stroke="#2563eb" stroke-width="3" />
+  <circle cx="80.0" cy="81.0" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="80.0" y="71.0" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">36</text>
+  <circle cx="144.4" cy="81.0" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="144.4" y="71.0" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">36</text>
+  <circle cx="208.9" cy="104.2" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="208.9" y="94.2" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">33</text>
+  <circle cx="273.3" cy="96.5" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="273.3" y="86.5" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">34</text>
+  <circle cx="337.8" cy="150.8" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="337.8" y="140.8" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">27</text>
+  <circle cx="402.2" cy="174.0" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="402.2" y="164.0" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">24</text>
+  <circle cx="466.7" cy="174.0" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="466.7" y="164.0" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">24</text>
+  <circle cx="531.1" cy="174.0" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="531.1" y="164.0" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">24</text>
+  <circle cx="595.6" cy="174.0" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="595.6" y="164.0" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">24</text>
+  <circle cx="660.0" cy="282.5" r="5" fill="#2563eb" stroke="#ffffff" stroke-width="2" />
+  <text x="660.0" y="272.5" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af">10</text>
+  <!-- Working set callout -->
+  <rect x="420" y="80" width="220" height="60" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" />
+  <text x="430" y="102" font-size="12" font-weight="bold" fill="#1e3a8a">Working Set Knee (Frames = 10)</text>
+  <text x="430" y="122" font-size="11" fill="#1e40af">Faults drop drastically to 10</text>
+</svg>

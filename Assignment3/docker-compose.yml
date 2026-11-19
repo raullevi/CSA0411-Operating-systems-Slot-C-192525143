@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  os-assignment3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: csa0411_os_assignment3_192525143
+    volumes:
+      - .:/app
+    command: /app/run_all_tasks.sh
+    privileged: true # Allows mlock and memory map inspection within container

@@ -1,0 +1,167 @@
+==========================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 1 EXPERIMENTAL INVESTIGATION LOG
+  Student: Rakul K | Register Number: 192525143
+  Date: Tue Nov 17 08:54:04 IST 2026
+==========================================================================
+
+[STEP 1] Cleaning and Building All Artifacts...
+rm -f *.o *.a *.so *.dylib bank_app_static bank_app_dynamic bank_app_dlopen
+gcc -std=c11 -Wall -Wextra -O2 -c libencrypt_v1.c -o libencrypt_v1.o
+ar rcs libencrypt.a libencrypt_v1.o
+gcc -std=c11 -Wall -Wextra -O2 -fPIC -dynamiclib -install_name @rpath/libencrypt.dylib libencrypt_v1.c -o libencrypt_v1.dylib
+gcc -std=c11 -Wall -Wextra -O2 -fPIC -dynamiclib -install_name @rpath/libencrypt.dylib libencrypt_v2.c -o libencrypt_v2.dylib
+cp libencrypt_v1.dylib libencrypt.dylib
+gcc -std=c11 -Wall -Wextra -O2 bank_app.c libencrypt.a -o bank_app_static
+gcc -std=c11 -Wall -Wextra -O2 bank_app.c -L. -lencrypt -Wl,-rpath,@executable_path/. -o bank_app_dynamic
+gcc -std=c11 -Wall -Wextra -O2 bank_app_dlopen.c -o bank_app_dlopen 
+
+[STEP 2] Comparing Executable & Library File Sizes:
+-rwxr-xr-x@ 1 raul_levi  staff    33K Nov 17 08:54 bank_app_dlopen
+-rwxr-xr-x@ 1 raul_levi  staff    34K Nov 17 08:54 bank_app_dynamic
+-rwxr-xr-x@ 1 raul_levi  staff   4.1M Nov 17 08:54 bank_app_static
+-rw-r--r--@ 1 raul_levi  staff   4.0M Nov 17 08:54 libencrypt.a
+-rwxr-xr-x@ 1 raul_levi  staff   4.0M Nov 17 08:54 libencrypt.dylib
+-rwxr-xr-x@ 1 raul_levi  staff   4.0M Nov 17 08:54 libencrypt_v1.dylib
+-rwxr-xr-x@ 1 raul_levi  staff   4.0M Nov 17 08:54 libencrypt_v2.dylib
+
+[STEP 3] Inspecting Dynamic Dependencies (ldd / otool -L):
+--- Static Executable (otool -L) ---
+bank_app_static:
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)
+--- Dynamic Executable (otool -L) ---
+bank_app_dynamic:
+	@rpath/libencrypt.dylib (compatibility version 0.0.0, current version 0.0.0)
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)
+--- dlopen Executable (otool -L) ---
+bank_app_dlopen:
+	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1359.0.0)
+
+[STEP 4] Executing Static vs Dynamic Application with v1.0 (Vulnerable):
+>>> Running bank_app_static:
+=================================================================
+  BANK BRANCH TRANSACTION TERMINAL - CSA04 OS Assignment 3 (CO3)
+  Student: Rakul K | Register Number: 192525143
+=================================================================
+PID: 2097
+Active Security Module: v1.0.0-LEGACY (VULNERABLE: Weak XOR Cipher, CVE-2026-BANK-01)
+Security Patch Status : CRITICAL RISK (UNPATCHED)
+Plaintext Transaction  : "TX#99281: SENDER=ACC_4412 AMOUNT=$1,500,000 RECIPIENT=ACC_8801"
+Encrypted Cipher Payload (Hex): 0E 02 79 63 63 68 62 6B 60 7A 09 1F 14 1E 1F 08 67 1B 19 19 05 6E 6E 6B 68 7A 1B 17 15 0F 14 0E 67 7E 6B 76 6F 6A 6A 76 6A 6A 6A 7A 08 1F 19 13 0A 13 1F 14 0E 67 1B 19 19 05 62 62 6A 6B 
+Decrypted Transaction  : "TX#99281: SENDER=ACC_4412 AMOUNT=$1,500,000 RECIPIENT=ACC_8801"
+
+=== Process Memory Map Inspection (/proc/self/maps) ===
+[Note: /proc/self/maps is Linux-specific (or in Linux container/procfs).
+       Inspecting runtime symbol and segment addresses directly:]
+  - Main function address (&main)             : 0x102ec84f8
+  - Library function (&get_encryption_version): 0x102ec882c
+  - Library function (&encrypt_payload)       : 0x102ec8858
+  - C library function (&printf)              : 0x18e486d6c
+  - Heap allocated memory buffer              : 0x103301840
+  - Stack local variable (&stack_var)         : 0x16cf36640
+
+Transaction completed successfully.
+
+>>> Running bank_app_dynamic:
+=================================================================
+  BANK BRANCH TRANSACTION TERMINAL - CSA04 OS Assignment 3 (CO3)
+  Student: Rakul K | Register Number: 192525143
+=================================================================
+PID: 2098
+Active Security Module: v1.0.0-LEGACY (VULNERABLE: Weak XOR Cipher, CVE-2026-BANK-01)
+Security Patch Status : CRITICAL RISK (UNPATCHED)
+Plaintext Transaction  : "TX#99281: SENDER=ACC_4412 AMOUNT=$1,500,000 RECIPIENT=ACC_8801"
+Encrypted Cipher Payload (Hex): 0E 02 79 63 63 68 62 6B 60 7A 09 1F 14 1E 1F 08 67 1B 19 19 05 6E 6E 6B 68 7A 1B 17 15 0F 14 0E 67 7E 6B 76 6F 6A 6A 76 6A 6A 6A 7A 08 1F 19 13 0A 13 1F 14 0E 67 1B 19 19 05 62 62 6A 6B 
+Decrypted Transaction  : "TX#99281: SENDER=ACC_4412 AMOUNT=$1,500,000 RECIPIENT=ACC_8801"
+
+=== Process Memory Map Inspection (/proc/self/maps) ===
+[Note: /proc/self/maps is Linux-specific (or in Linux container/procfs).
+       Inspecting runtime symbol and segment addresses directly:]
+  - Main function address (&main)             : 0x1021084b8
+  - Library function (&get_encryption_version): 0x1028b43c0
+  - Library function (&encrypt_payload)       : 0x1028b43ec
+  - C library function (&printf)              : 0x18e486d6c
+  - Heap allocated memory buffer              : 0x1024b9840
+  - Stack local variable (&stack_var)         : 0x16dcf6630
+
+Transaction completed successfully.
+
+[STEP 5] Benchmarking Startup Time and Memory Use (Static vs Dynamic):
+>>> Timing bank_app_static (100 iterations loop):
+
+real	0m0.347s
+user	0m0.085s
+sys	0m0.179s
+>>> Timing bank_app_dynamic (100 iterations loop):
+
+real	0m0.432s
+user	0m0.099s
+sys	0m0.215s
+
+[STEP 6] Hot Library Replacement (Zero-Recompile Security Patch):
+--- Initial dynamic app state before patch ---
+Active Security Module: v1.0.0-LEGACY (VULNERABLE: Weak XOR Cipher, CVE-2026-BANK-01)
+Security Patch Status : CRITICAL RISK (UNPATCHED)
+--- Deploying Security Fix: Replacing libencrypt with v2.1 ---
+--- Re-running bank_app_dynamic WITHOUT recompiling ---
+Active Security Module: v2.1.0-PATCHED (SECURE: ChaCha20-Poly1305 / AES-256-GCM Compliance)
+Security Patch Status : SECURE (PATCHED)
+--- Verification: bank_app_static is STILL running vulnerable code unless 200MB rebuilt ---
+Active Security Module: v1.0.0-LEGACY (VULNERABLE: Weak XOR Cipher, CVE-2026-BANK-01)
+Security Patch Status : CRITICAL RISK (UNPATCHED)
+
+[STEP 7] Runtime Dynamic Loading with dlopen() and dlsym():
+=================================================================
+  DYNAMIC RUNTIME LOADER (dlopen / dlsym) - BANK SYSTEM
+  Target Shared Library: ./libencrypt.dylib
+=================================================================
+Process PID: 2309
+[1] Attempting dlopen("./libencrypt.dylib", RTLD_LAZY)...
+[SUCCESS] Library loaded into address space at handle: 0x7dfedaa0
+[2] Resolved Symbol Addresses:
+    - get_encryption_version at 0x109bb4410
+    - is_security_patch_active at 0x109bb4434
+    - encrypt_payload at 0x109bb443c
+    - decrypt_payload at 0x109bb44b4
+
+[3] Library Call Execution:
+    Version: v2.1.0-PATCHED (SECURE: ChaCha20-Poly1305 / AES-256-GCM Compliance)
+    Patch Status: SECURE (PATCHED)
+    Plaintext : BANK_TX_TRANSFER $500,000 ROUTING_021000021
+    Ciphertext: 40 D6 6C A2 ED E6 5B 11 F0 4E 14 8A 8D 76 B3 79 53 FD B7 79 96 25 18 6A D3 DD 8C 82 BD E6 D3 99 68 26 9F 69 9E C5 18 6A D3 4D 97 
+    Decrypted : BANK_TX_TRANSFER $500,000 ROUTING_021000021
+
+[4] Closing library handle with dlclose()...
+[SUCCESS] Library unloaded from memory space.
+
+[STEP 8] Missing Shared Library Failure Testing:
+--- Renaming shared library to simulate missing file ---
+>>> (A) Testing dynamic application failure behavior:
+dyld[2311]: Library not loaded: @rpath/libencrypt.dylib
+  Referenced from: <3B3446B6-B491-3124-8397-DF5C92BC1799> /Users/raul_levi/.gemini/antigravity/scratch/CSA0411-Operating-systems-Slot-C-192525143/Q1_Linking_Loading/bank_app_dynamic
+  Reason: tried: '/Users/raul_levi/.gemini/antigravity/scratch/CSA0411-Operating-systems-Slot-C-192525143/Q1_Linking_Loading/./libencrypt.dylib' (no such file), '/Users/raul_levi/.gemini/antigravity/scratch/CSA0411-Operating-systems-Slot-C-192525143/Q1_Linking_Loading/./libencrypt.dylib' (no such file)
+/Users/raul_levi/.gemini/antigravity/scratch/CSA0411-Operating-systems-Slot-C-192525143/Q1_Linking_Loading/run_q1_experiments.sh: line 72:  2311 Abort trap: 6           ./bank_app_dynamic
+-> Dynamic app terminated by dynamic linker (fatal crash at load time).
+
+>>> (B) Testing dlopen application failure behavior:
+[ERROR] dlopen() failed: dlopen(./libencrypt.dylib, 0x0001): tried: './libencrypt.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS./libencrypt.dylib' (no such file), '/usr/lib/./libencrypt.dylib' (no such file, not in dyld cache), './libencrypt.dylib' (no such file), '/Users/raul_levi/.gemini/antigravity/scratch/CSA0411-Operating-systems-Slot-C-192525143/Q1_Linking_Loading/libencrypt.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/Users/raul_levi/.gemini/antigravity/scratch/CSA0411-Operating-systems-Slot-C-192525143/Q1_Linking_Loading/libencrypt.dylib' (no such file), '/Users/raul_levi/.gemini/antigravity/scratch/CSA0411-Operating-systems-Slot-C-192525143/Q1_Linking_Loading/libencrypt.dylib' (no such file)
+[FALLBACK] Security library unavailable! Bank terminal switching to SAFE OFFLINE MODE.
+=================================================================
+  DYNAMIC RUNTIME LOADER (dlopen / dlsym) - BANK SYSTEM
+  Target Shared Library: ./libencrypt.dylib
+=================================================================
+Process PID: 2312
+[1] Attempting dlopen("./libencrypt.dylib", RTLD_LAZY)...
+-> dlopen app caught failure gracefully at runtime.
+
+[STEP 9] Concurrent Multi-Instance Execution & Shared Code Pages:
+Launching two background instances of bank_app_dynamic...
+Both instances active: PID1=2314, PID2=2315
+Examining shared library region in PID 2314:
+REGION TYPE                        SIZE     SIZE     SIZE     SIZE     SIZE     SIZE     SIZE    COUNT (non-coalesced) 
+__TEXT                            6408K    6120K       0K       0K       0K       0K       0K       83 
+TOTAL                            386.8G   134.9M    1184K       0K       0K       0K       0K      323 
+TOTAL                              13.2M       336K       336K         0K        183        13K       323K     97%       8
+
+==========================================================================
+  QUESTION 1 EXPERIMENTS COMPLETED SUCCESSFULLY!
+==========================================================================

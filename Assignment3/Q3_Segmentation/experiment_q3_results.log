@@ -1,0 +1,101 @@
+==========================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 3 SEGMENTATION EXPERIMENTS
+  Student: Rakul K | Register Number: 192525143
+  Date: Tue Nov 17 09:02:31 IST 2026
+==========================================================================
+
+[STEP 1] Building Q3 Segmentation Simulator...
+rm -f segmentation_sim *.o
+gcc -std=c11 -Wall -Wextra -O2 segmentation_sim.c -o segmentation_sim
+
+[STEP 2] Executing Segmentation Suite (Translation, SIGSEGV, Frag Sim):
+=======================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 3 SEGMENTATION
+  Student: Rakul K | Register Number: 192525143
+=======================================================================
+
+=======================================================================
+  PART 1: SEGMENT ADDRESS TRANSLATION (8 VERIFICATION ADDRESSES)
+=======================================================================
+Seg#   Segment Name              Base       Limit      Perms       
+-----------------------------------------------------------------------
+0      Code (Text)               1400       1000       R-X         
+1      Data (Globals/BSS)        6300       400        RW-         
+2      Stack                     4300       500        RW-         
+3      Shared Library (LibC)     3200       1500       R-X         
+4      Heap (Dynamic)            8500       600        RW-         
+-----------------------------------------------------------------------
+
+#    Logical    Access Description                  Status         Physical Address / Trap  
+---------------------------------------------------------------------------------------------
+[1]  (0, 50  )   Instruction fetch from Code         ACCEPTED       Valid: Base 1400 + Offset 50 = 1450
+[2]  (0, 1050)   Execution buffer overrun in Code    REJECTED       TRAP: Offset (1050) >= Limit (1000) [SEGV]
+[3]  (1, 200 )   Read global counter in Data         ACCEPTED       Valid: Base 6300 + Offset 200 = 6500
+[4]  (1, 400 )   Array bounds violation in Data (offset == limit) REJECTED       TRAP: Offset (400) >= Limit (400) [SEGV]
+[5]  (2, 150 )   Stack push activation record        ACCEPTED       Valid: Base 4300 + Offset 150 = 4450
+[6]  (3, 720 )   Call to shared compiler library     ACCEPTED       Valid: Base 3200 + Offset 720 = 3920
+[7]  (4, 300 )   Malloc block read from Heap         ACCEPTED       Valid: Base 8500 + Offset 300 = 8800
+[8]  (5, 50  )   Access non-existent Segment 5       REJECTED       TRAP: Invalid Segment Selector
+---------------------------------------------------------------------------------------------
+
+=======================================================================
+  PART 2: TRIGGER HARDWARE SEGMENTATION FAULT (SIGSEGV) & OS ACTION
+=======================================================================
+Attempting illegal write to read-only memory address (NULL pointer dereference)...
+[SUCCESSFUL TRAP] Hardware Memory Management Unit (MMU) triggered exception!
+  - Faulting Target Address : 0x0
+  - OS Kernel Action:
+    1. CPU detects segment/page protection violation.
+    2. CPU switches from User Mode (Ring 3) to Kernel Mode (Ring 0).
+    3. Kernel trap handler constructs siginfo_t and issues SIGSEGV.
+    4. If no signal handler: Kernel terminates process with Core Dump.
+    5. If handled: Execution transfers safely to registered handler.
+
+=======================================================================
+  PART 3: EXTERNAL FRAGMENTATION SIMULATION (20 DYNAMIC SEGMENTS)
+=======================================================================
+Simulating dynamic segment lifecycle (Allocation & Freeing)...
+Fragmentation Metrics After 20 Segment Allocation/Deallocation Cycles:
+  - Total Physical Pool Size        : 1024 KB (1.0 MB)
+  - Total Free Memory Available     : 550 KB (53.7% free)
+  - Number of Disjoint Free Holes   : 11 holes (Checkerboarding)
+  - Largest Contiguous Free Block   : 104 KB
+  - Incoming Large Student Job Req  : 150 KB
+  - Allocation Result               : FAILED (EXTERNAL FRAGMENTATION REJECTION)!
+  - Calculated External Fragmentation: 81.09%
+
+=======================================================================
+  PART 4: RUNNING PROCESS MEMORY SEGMENT INSPECTION
+=======================================================================
+Process PID: 2654
+Logical Memory Segments:
+  - Code / Text Segment     (&translate_8_addresses): 0x100ae05e8
+  - Initialized Data Segment (seg_table)             : 0x100ae8000
+  - Stack Segment            (&stack_var)            : 0x16f31e86c
+  - Heap Segment             (malloc buffer)         : 0x1013bd9e0
+=======================================================================
+
+[STEP 3] Inspecting Running Process Virtual Memory Segments:
+macOS vmmap segment breakdown for current shell (PID 2629):
+REGION TYPE                        SIZE     SIZE     SIZE     SIZE     SIZE     SIZE     SIZE    COUNT (non-coalesced) 
+Malloc Guard Page                   32K       0K       0K       0K       0K       0K       0K        2         see MALLOC ZONE table below
+Malloc Metadata                    176K     160K     160K       0K       0K       0K       0K        3         see MALLOC ZONE table below
+Malloc Metadata metadata          1200K     288K     288K       0K       0K       0K       0K        2         see MALLOC ZONE table below
+Malloc Nano metadata                32K      16K      16K       0K       0K       0K       0K        1         see MALLOC ZONE table below
+Malloc Small                      12.0M     288K     288K       0K       0K       0K       0K        5         see MALLOC ZONE table below
+Malloc Small (empty)              8176K      48K      48K       0K       0K       0K       0K        2         see MALLOC ZONE table below
+Malloc Tiny                       4096K      64K      64K       0K       0K       0K       0K        1         see MALLOC ZONE table below
+Stack                             8176K      32K      32K       0K       0K       0K       0K        1 
+Stack Guard                       56.0M       0K       0K       0K       0K       0K       0K        1 
+__DATA                             241K     223K     129K       0K       0K       0K       0K       69 
+__DATA_CONST                       120K     120K       0K       0K       0K       0K       0K       40 
+__DATA_DIRTY                       137K     137K     114K       0K       0K       0K       0K       35 
+__TEXT                            7180K    6636K       0K       0K       0K       0K       0K       83 
+unused but dirty shlib __DATA       93K      93K      93K       0K       0K       0K       0K       20 
+TOTAL                            386.8G   135.8M    1632K       0K       0K       0K       0K      332 
+MALLOC ZONE                         SIZE       SIZE       SIZE       SIZE      COUNT  ALLOCATED  FRAG SIZE  % FRAG   COUNT
+TOTAL                              25.2M       704K       704K         0K        941       162K       542K     77%      11
+
+==========================================================================
+  QUESTION 3 EXPERIMENTS COMPLETED SUCCESSFULLY!
+==========================================================================

@@ -1,0 +1,134 @@
+==========================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 4 VIRTUAL MEMORY EXPERIMENTS
+  Student: Rakul K | Register Number: 192525143
+  Date: Tue Nov 17 09:04:18 IST 2026
+==========================================================================
+
+[STEP 1] Building Q4 VM Experiments...
+rm -f vm_experiments *.o *.csv *.svg
+gcc -std=c11 -Wall -Wextra -O2 vm_experiments.c -o vm_experiments
+
+[STEP 2] Running Virtual Memory Experiments Suite:
+==================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 4 VIRTUAL MEMORY
+  Student: Rakul K | Register Number: 192525143
+==================================================================
+
+==================================================================
+  PART 4: EFFECTIVE ACCESS TIME (EAT) EVALUATION MATRIX
+==================================================================
+Parameters: Memory Access t_mem = 100 ns, Page Fault Service t_fault = 8 ms = 8,000,000 ns
+Formula   : EAT = (1 - p) * 100 + p * 8,000,000 = 100 + p * 7,999,900 ns
+
+Page Fault Rate (p)      EAT (ns)         EAT (microseconds) Slowdown      
+-----------------------------------------------------------------------
+1 in 1,000 (0.1%)               8099.90 ns         8.0999 us        81.00x
+1 in 100,000 (0.001%)            180.00 ns         0.1800 us         1.80x
+1 in 1,000,000 (0.0001%)         108.00 ns         0.1080 us         1.08x
+-----------------------------------------------------------------------
+
+Maximum Acceptable Page-Fault Rate for <= 10% Slowdown:
+  Target EAT <= 1.10 * 100 ns = 110 ns
+  p_max = 10 / 7,999,900 = 0.00000125 (approx 1 in 799990 accesses)
+==================================================================
+==================================================================
+  PART 1: MEMORY ACCESS LOCALITY BENCHMARK (SEQUENTIAL VS RANDOM)
+==================================================================
+Allocating 64 MB test buffer...
+
+[1] Sequential Access (Spatial & Temporal Locality):
+    - Execution Time : 0.0093 seconds
+    - Minor Faults   : 4096 page reclaims
+    - Major Faults   : 0 disk I/O faults
+
+[2] Random Stride Access (Scattered Access):
+    - Execution Time : 0.0001 seconds
+    - Minor Faults   : 0 page reclaims
+    - Major Faults   : 0 disk I/O faults
+    - Performance Ratio (Random vs Seq): 0.01x slower
+
+==================================================================
+  PART 2: COPY-ON-WRITE (COW) DEMONSTRATION WITH fork()
+==================================================================
+Allocating 32 MB memory block in Parent...
+Parent RSS before fork(): 67184 KB
+  [Child Immediately After fork()] RSS: 1152 KB (Zero duplicate copies!)
+  [Child After Writing 25% Pages] COW Minor Faults Triggered: 1
+  [Child Final RSS]                : 1168 KB
+==================================================================
+  CSA0411 OS ASSIGNMENT 3 - QUESTION 4 VIRTUAL MEMORY
+  Student: Rakul K | Register Number: 192525143
+==================================================================
+
+==================================================================
+  PART 4: EFFECTIVE ACCESS TIME (EAT) EVALUATION MATRIX
+==================================================================
+Parameters: Memory Access t_mem = 100 ns, Page Fault Service t_fault = 8 ms = 8,000,000 ns
+Formula   : EAT = (1 - p) * 100 + p * 8,000,000 = 100 + p * 7,999,900 ns
+
+Page Fault Rate (p)      EAT (ns)         EAT (microseconds) Slowdown      
+-----------------------------------------------------------------------
+1 in 1,000 (0.1%)               8099.90 ns         8.0999 us        81.00x
+1 in 100,000 (0.001%)            180.00 ns         0.1800 us         1.80x
+1 in 1,000,000 (0.0001%)         108.00 ns         0.1080 us         1.08x
+-----------------------------------------------------------------------
+
+Maximum Acceptable Page-Fault Rate for <= 10% Slowdown:
+  Target EAT <= 1.10 * 100 ns = 110 ns
+  p_max = 10 / 7,999,900 = 0.00000125 (approx 1 in 799990 accesses)
+==================================================================
+==================================================================
+  PART 1: MEMORY ACCESS LOCALITY BENCHMARK (SEQUENTIAL VS RANDOM)
+==================================================================
+Allocating 64 MB test buffer...
+
+[1] Sequential Access (Spatial & Temporal Locality):
+    - Execution Time : 0.0093 seconds
+    - Minor Faults   : 4096 page reclaims
+    - Major Faults   : 0 disk I/O faults
+
+[2] Random Stride Access (Scattered Access):
+    - Execution Time : 0.0001 seconds
+    - Minor Faults   : 0 page reclaims
+    - Major Faults   : 0 disk I/O faults
+    - Performance Ratio (Random vs Seq): 0.01x slower
+
+==================================================================
+  PART 2: COPY-ON-WRITE (COW) DEMONSTRATION WITH fork()
+==================================================================
+Allocating 32 MB memory block in Parent...
+Parent RSS before fork(): 67184 KB
+[Parent] Child finished. COW allows instant fork() without copying RAM.
+
+==================================================================
+  PART 3: MEDICAL IMAGING REFERENCE STRING - FAULTS VS FRAMES
+==================================================================
+Simulating 36-access medical scan string over frame allocations 1 to 10...
+Frames   Page Faults     Fault Rate (%)     Hit Rate (%)   
+-------------------------------------------------------------
+1        36              100.00             0.00           
+2        36              100.00             0.00           
+3        33              91.67              8.33           
+4        34              94.44              5.56           
+5        27              75.00              25.00          
+6        24              66.67              33.33          
+7        24              66.67              33.33          
+8        24              66.67              33.33          
+9        24              66.67              33.33          
+10       10              27.78              72.22          
+-------------------------------------------------------------
+Saved data to 'page_fault_curve.csv' for plotting.
+
+
+[STEP 3] Generating Page Fault vs Frame Count SVG Curve:
+Generated SVG plot at page_fault_curve.svg
+
+[STEP 4] Memory and Swap Status of Current System:
+Host Physical Memory:
+hw.memsize: 17179869184
+Host VM Swap Usage:
+vm.swapusage: total = 2048.00M  used = 689.75M  free = 1358.25M  (encrypted)
+
+==========================================================================
+  QUESTION 4 EXPERIMENTS COMPLETED SUCCESSFULLY!
+==========================================================================
