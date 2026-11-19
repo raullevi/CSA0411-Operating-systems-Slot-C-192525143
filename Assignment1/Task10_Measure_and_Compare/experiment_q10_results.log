@@ -1,0 +1,19 @@
+======================================================================
+  CSA0411 OPERATING SYSTEMS - ASSIGNMENT 1 (CO1)
+  Task 10: Process Creation vs Thread Creation Microbenchmark (N = 1000)
+  Student: Rakul K (Reg No: 192525143)
+======================================================================
+
+Measuring sequential creation and teardown of 1000 OS Processes...
+Measuring concurrent creation and joining of 1000 POSIX Threads...
+
+----------------------------------------------------------------------
+Entity               | Total Time (s)   | Avg Cost / Unit  | Speedup     
+----------------------------------------------------------------------
+1,000 Processes      |         0.8345 s |        834.52 us | 1.00x (Baseline)
+1,000 Threads        |         0.0170 s |         16.99 us | 49.12x Faster
+----------------------------------------------------------------------
+
+Evaluation:
+1. Thread creation is vastly faster because threads share address space and page tables.
+2. Process creation requires duplicating task structures, memory maps, and file descriptor tables.

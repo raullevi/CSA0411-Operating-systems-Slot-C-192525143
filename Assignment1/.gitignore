@@ -1,0 +1,24 @@
+# Binaries and build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dSYM/
+*.out
+*.app
+
+# Executables
+copy_file_todo
+shell_todo
+measure_bench
+
+# Temporary test data
+records.dat
+copy.dat
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
