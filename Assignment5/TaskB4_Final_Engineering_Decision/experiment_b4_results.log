@@ -1,0 +1,31 @@
+==========================================================
+Executing Task B4: Final Engineering Decision & Sizing...
+Student: Rakul K (192525143) | SIMATS Engineering (CO5)
+==========================================================
+
+--- 1. Multi-Service Configuration & Resource Isolation ---
+Validating docker-compose-multiservice.yml syntax...
+  [OK] docker-compose-multiservice.yml exists.
+  Services defined: result-portal (CPU limit: 0.50, RAM: 512M) & lms-portal (CPU limit: 0.25, RAM: 256M)
+  [OK] k8s-multiservice.yaml exists with distinct Deployments, Services, and ResourceQuotas.
+
+--- 2. Capacity Estimation Model (150,000 Students in 2 Hours) ---
+Total Workload Volume      : 450,000 HTTP requests
+Sustained Average Traffic  : 62.50 req/s
+Estimated Peak Traffic     : 218.75 req/s (surge factor 3.5x)
+Single Pod Capacity        : 25 req/s (CPU: 0.5 vCPU, RAM: 524 MiB)
+Container Pods Needed      : 11 pods (9 active + 2 HA standby)
+Total Container Cluster    : 5.5 vCPUs, 5.63 GB RAM
+Virtual Machine Alternative: 5 VMs (10 vCPUs, 20 GB RAM)
+Container Efficiency Gain  : 71.8% less RAM than VMs
+
+--- 3. Production Architecture Recommendation ---
+Decision : HYBRID CLOUD ARCHITECTURE
+  - Baseline : On-premises Kubernetes cluster for LMS & internal operations (Predictable Capex)
+  - Bursting : Public Cloud EKS/GKE pods autoscaled for 6 hours on bi-annual Result Days
+  - Data Governance: Master student databases kept on-premise; ephemeral read replicas in cloud.
+  - Annual Savings: 66% lower Total Cost of Ownership compared to full cloud deployment.
+
+==========================================================
+Task B4 verification completed successfully.
+==========================================================

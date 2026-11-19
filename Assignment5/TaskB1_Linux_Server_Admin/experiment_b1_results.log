@@ -1,0 +1,17 @@
+--- 1. Verification of access_log_summary.sh (TODO 1 & 2) ---
+Requests per status code:
+200 4
+302 1
+403 1
+404 1
+Busiest client:
+10.0.0.5 4
+Total bytes sent: 43200
+
+--- 2. Crontab Schedule Configuration ---
+0 * * * * /var/www/result-portal/access_log_summary.sh >> /var/log/traffic.log 2>&1
+
+--- 3. Automated Disk Alert Verification ---
+--- Disk Space Health Check ---
+Root Partition Usage: 18% (Threshold: 85%)
+OK: Disk space is within safe operational limits.

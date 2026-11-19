@@ -1,0 +1,48 @@
+version: '3.8'
+
+# Multi-service setup demonstrating independent resource limits
+# Prevents noisy-neighbor starvation between Portal and LMS
+services:
+  result-portal:
+    image: simats/result-portal:1.0
+    container_name: simats_result_portal
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - SERVICE_NAME=ResultPortal
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    restart: unless-stopped
+    networks:
+      - simats-net
+
+  lms-portal:
+    image: simats/lms-portal:1.0
+    container_name: simats_lms_portal
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - SERVICE_NAME=LMS_Examination
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
+        reservations:
+          cpus: '0.10'
+          memory: 128M
+    restart: unless-stopped
+    networks:
+      - simats-net
+
+networks:
+  simats-net:
+    driver: bridge

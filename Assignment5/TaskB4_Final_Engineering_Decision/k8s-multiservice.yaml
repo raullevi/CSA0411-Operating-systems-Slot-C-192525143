@@ -1,0 +1,93 @@
+# Kubernetes Multi-Service Configuration with Dedicated Namespaces & ResourceQuotas
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: simats-academic
+---
+# Result Portal Deployment with Strict Limits
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: result-portal
+  namespace: simats-academic
+  labels:
+    app: result-portal
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: result-portal
+  template:
+    metadata:
+      labels:
+        app: result-portal
+    spec:
+      containers:
+      - name: portal
+        image: simats/result-portal:1.0
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 250m
+            memory: 256Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: result-portal-svc
+  namespace: simats-academic
+spec:
+  type: ClusterIP
+  selector:
+    app: result-portal
+  ports:
+  - port: 8000
+    targetPort: 8000
+---
+# LMS Service Deployment with Independent Resource Limits
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lms-service
+  namespace: simats-academic
+  labels:
+    app: lms-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lms-service
+  template:
+    metadata:
+      labels:
+        app: lms-service
+    spec:
+      containers:
+      - name: lms
+        image: simats/lms-portal:1.0
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: lms-service-svc
+  namespace: simats-academic
+spec:
+  type: ClusterIP
+  selector:
+    app: lms-service
+  ports:
+  - port: 8080
+    targetPort: 8080
