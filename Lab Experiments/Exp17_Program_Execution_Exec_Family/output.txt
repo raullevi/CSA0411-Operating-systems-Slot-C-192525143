@@ -1,0 +1,9 @@
+Child 1 using execl(): 
+Hello from execl 
+Child 2 using execlp(): 
+names.txt 
+prog 
+prog.c 
+Child 3 using execvp(): 
+3 names.txt 
+Parent: all children finished

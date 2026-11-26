@@ -1,0 +1,6 @@
+Enter the mark (0-100): 82 
+Grade: A 
+Enter a number: 17 
+17 is Odd 
+Enter day number (1-7): 4 
+Wednesday

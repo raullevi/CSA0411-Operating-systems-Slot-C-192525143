@@ -1,0 +1,8 @@
+Parent waiting for child 1806... 
+Child printing 1 
+Child printing 2 
+Child printing 3 
+Child printing 4 
+Child printing 5 
+Child 1806 finished with exit status 7 
+Parent continues after the child

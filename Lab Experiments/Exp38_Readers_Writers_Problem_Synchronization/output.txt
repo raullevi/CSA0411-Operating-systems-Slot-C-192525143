@@ -1,0 +1,6 @@
+Writer 1 writes data = 10 
+Reader 2 reads data = 10 (readers inside = 1) 
+Reader 3 reads data = 10 (readers inside = 2) 
+Reader 1 reads data = 10 (readers inside = 3) 
+Writer 2 writes data = 20 
+Final data = 20

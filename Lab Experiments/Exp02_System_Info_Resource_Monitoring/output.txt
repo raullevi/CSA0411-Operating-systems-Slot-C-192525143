@@ -1,0 +1,19 @@
+========== SYSTEM INFORMATION ========== 
+Host name      : vm 
+Logged-in user : root 
+Kernel version : 6.18.44-fc-v139 
+Date and time  : 21-10-2026 09:21:39 
+Uptime         : up 20 minutes 
+CPU cores      : 2 
+  
+========== MEMORY USAGE (MB) ========== 
+               total        used        free      shared  buff/cache   available 
+Mem:            8029         488        7416          14         345        7541 
+Swap:              0           0           0 
+  
+========== DISK USAGE ========== 
+Filesystem Size Used Avail Use% 
+/dev/vda 252G 14G 30G 31% 
+  
+========== PROCESS COUNT ========== 
+Running processes : 67

@@ -1,0 +1,4 @@
+Thread 1: sum of a[4..7] = 26 
+Thread 2: sum of a[8..11] = 42 
+Thread 0: sum of a[0..3] = 10 
+Total sum = 78

@@ -33,6 +33,11 @@ This repository contains the complete laboratory submissions for all five Course
 │   ├── TaskA1 .. TaskB4
 │   ├── output_ss/   # Dark-mode terminal output screenshots
 │   └── *.docx       # Official SIMATS submission reports
+├── Lab Experiments/ # Complete 40 Laboratory Experiments from CSA04 OS Lab Manual
+│   ├── Exp01 .. Exp40 # Source code (.c/.sh), inputs, outputs, and READMEs
+│   ├── output_ss/   # All 40 dark-mode terminal output screenshots (.png)
+│   ├── run_all_experiments.sh # Master automated compilation & execution suite
+│   └── README.md    # Comprehensive index of all 40 lab experiments
 └── Reports/         # Comprehensive Word (.docx) submission reports for all COs
 ```
 
@@ -64,6 +69,13 @@ This repository contains the complete laboratory submissions for all five Course
 - **Domain:** University Result Portal & Cloud Operations.
 - **Key Tasks:** Linux server administration & AWK log analytics (`access_log_summary.sh`), Automated disk alert monitor (`disk_alert.sh`), Multi-stage secure containerisation (`Dockerfile`, `docker-compose.yml`), Bare Metal vs VM vs Container benchmark, Kubernetes Deployment manifest & self-healing verification (`deployment.yaml`), Multi-service resource quotas & 150,000 student capacity sizing model (`TaskB4`).
 - **Output Screenshots:** `Assignment5/output_ss/`
+
+### [Lab Experiments: 40 Operating Systems Laboratory Experiments](file:///Lab%20Experiments/)
+- **Manual:** Official SIMATS CSA04 Operating Systems Laboratory Manual.
+- **Coverage:** Complete 40 experiments (CO1: Experiments 1 to 15, CO2: Experiments 16 to 40).
+- **Deliverables:** Every single experiment includes its full source code (`main.c` / `script.sh`), inputs (`input.txt`), verified terminal outputs (`output.txt`), individual documentation (`README.md`), and dark-mode terminal output screenshot (`output.png`).
+- **Screenshots Directory:** `Lab Experiments/output_ss/` (All 40 dark-mode terminal screenshots: `exp01_output.png` to `exp40_output.png`).
+- **Master Test Suite:** `./run_all_experiments.sh` automatically compiles and executes all 40 experiments.
 
 ---
 

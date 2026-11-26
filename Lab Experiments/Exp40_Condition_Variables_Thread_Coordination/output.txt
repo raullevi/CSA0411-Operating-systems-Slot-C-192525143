@@ -1,0 +1,7 @@
+Worker 2 waiting for data 
+Worker 3 waiting for data 
+Worker 1 waiting for data 
+Main thread: data is ready, signalling all workers 
+Worker 3 woke up and processed data = 300 
+Worker 1 woke up and processed data = 100 
+Worker 2 woke up and processed data = 200

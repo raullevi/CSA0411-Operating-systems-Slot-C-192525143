@@ -1,0 +1,11 @@
+Process ID        : 1668 
+Parent Process ID : 1606 
+User ID           : 0 
+Group ID          : 0 
+  
+Details from /proc/self/status: 
+Name:   prog 
+State:  R (running) 
+PPid:   1606 
+VmRSS:      1736 kB 
+Threads:        1

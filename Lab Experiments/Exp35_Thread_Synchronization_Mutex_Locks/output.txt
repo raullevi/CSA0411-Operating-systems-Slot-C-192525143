@@ -1,0 +1,2 @@
+Without mutex  : counter = 1242896 (expected 2000000) 
+With mutex     : counter = 2000000 (expected 2000000)

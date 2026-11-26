@@ -1,0 +1,14 @@
+Enter number of processes: 4 
+Enter burst time of P1: 10 
+Enter burst time of P2: 4 
+Enter burst time of P3: 6 
+Enter burst time of P4: 2 
+Enter time quantum for Round Robin: 3 
+  
+Algorithm       Avg WT  Avg TAT Avg RT 
+FCFS            11.00   16.50   11.00 
+SJF             5.00    10.50   5.00 
+Round Robin     11.00   16.50   4.50 
+  
+Lowest average waiting time : SJF 
+Lowest average response time: Round Robin

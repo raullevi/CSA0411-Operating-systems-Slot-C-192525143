@@ -1,0 +1,4 @@
+Shared memory created with id 2 
+Child wrote : Hello from child through shared memory 
+Parent read : Hello from child through shared memory 
+Shared memory removed

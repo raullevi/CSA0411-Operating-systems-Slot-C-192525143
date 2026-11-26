@@ -1,0 +1,8 @@
+Message queue created with id 2 
+Sender   : sent "Message one" 
+Sender   : sent "Message two" 
+Sender   : sent "Message three" 
+Receiver : got  "Message one" 
+Receiver : got  "Message two" 
+Receiver : got  "Message three" 
+Message queue removed

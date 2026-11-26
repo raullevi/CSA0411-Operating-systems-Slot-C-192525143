@@ -1,0 +1,5 @@
+File created and 33 bytes written 
+Bytes read : 33 
+Contents   : Welcome to Operating Systems Lab 
+File sample.txt deleted 
+Verified: file no longer exists

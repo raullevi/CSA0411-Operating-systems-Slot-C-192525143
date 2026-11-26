@@ -1,0 +1,17 @@
+Before chmod: 
+File name   : data.txt 
+Inode       : 886358 
+Size        : 19 bytes 
+Links       : 1 
+Owner UID   : 0 
+Permissions : 644 
+  
+Permissions changed to 754 
+  
+After chmod: 
+File name   : data.txt 
+Inode       : 886358 
+Size        : 19 bytes 
+Links       : 1 
+Owner UID   : 0 
+Permissions : 754

@@ -1,0 +1,3 @@
+Parent sending  : Hello child, this is your parent 
+Child received  : Hello child, this is your parent 
+Communication through pipe completed

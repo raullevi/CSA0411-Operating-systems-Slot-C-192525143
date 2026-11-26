@@ -1,0 +1,17 @@
+Producer produced item 1 at position 0 
+Consumer consumed item 1 from position 0 
+Producer produced item 2 at position 1 
+Producer produced item 3 at position 2 
+Consumer consumed item 2 from position 1 
+Producer produced item 4 at position 3 
+Producer produced item 5 at position 4 
+Consumer consumed item 3 from position 2 
+Producer produced item 6 at position 0 
+Producer produced item 7 at position 1 
+Producer produced item 8 at position 2 
+Consumer consumed item 4 from position 3 
+Consumer consumed item 5 from position 4 
+Consumer consumed item 6 from position 0 
+Consumer consumed item 7 from position 1 
+Consumer consumed item 8 from position 2 
+All 8 items produced and consumed

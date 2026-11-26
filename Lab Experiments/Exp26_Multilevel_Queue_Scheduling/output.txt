@@ -1,0 +1,18 @@
+Enter number of processes: 5 
+Enter burst time and queue (0-system, 1-user) of P1: 4 1 
+Enter burst time and queue (0-system, 1-user) of P2: 3 0 
+Enter burst time and queue (0-system, 1-user) of P3: 5 1 
+Enter burst time and queue (0-system, 1-user) of P4: 2 0 
+Enter burst time and queue (0-system, 1-user) of P5: 6 0 
+  
+Gantt Chart: | P2 (0-3) | P4 (3-5) | P5 (5-11) | P1 (11-15) | P3 (15-20) | 
+  
+Process Queue   BT      WT      TAT 
+P1      User    4       11      15 
+P2      System  3       0       3 
+P3      User    5       15      20 
+P4      System  2       3       5 
+P5      System  6       5       11 
+  
+Average Waiting Time    = 6.80 
+Average Turnaround Time = 10.80

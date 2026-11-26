@@ -1,0 +1,9 @@
+Check 1: CPU = 0%  Memory = 6% 
+  CPU usage OK 
+  Memory usage OK 
+Check 2: CPU = 0%  Memory = 6% 
+  CPU usage OK 
+  Memory usage OK 
+Check 3: CPU = 0%  Memory = 6% 
+  CPU usage OK 
+  Memory usage OK

@@ -1,0 +1,16 @@
+User 1 waiting for a printer 
+User 1 is PRINTING 
+User 2 waiting for a printer 
+User 2 is PRINTING 
+User 3 waiting for a printer 
+User 4 waiting for a printer 
+User 5 waiting for a printer 
+User 1 finished printing 
+User 3 is PRINTING 
+User 2 finished printing 
+User 4 is PRINTING 
+User 3 finished printing 
+User 5 is PRINTING 
+User 4 finished printing 
+User 5 finished printing 
+All users served using 2 printers

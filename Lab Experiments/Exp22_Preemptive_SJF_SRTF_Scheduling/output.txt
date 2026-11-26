@@ -1,0 +1,16 @@
+Enter number of processes: 4 
+Enter arrival time and burst time of P1: 0 8 
+Enter arrival time and burst time of P2: 1 4 
+Enter arrival time and burst time of P3: 2 9 
+Enter arrival time and burst time of P4: 3 5 
+  
+Execution order: P1(t=0) P2(t=1) P4(t=5) P1(t=10) P3(t=17) 
+  
+Process AT      BT      CT      TAT     WT 
+P1      0       8       17      17      9 
+P2      1       4       5       4       0 
+P3      2       9       26      24      15 
+P4      3       5       10      7       2 
+  
+Average Waiting Time    = 6.50 
+Average Turnaround Time = 13.00

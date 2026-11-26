@@ -1,0 +1,39 @@
+===== SYSTEM ADMIN MENU ===== 
+1. Show date and time 
+2. Show disk usage 
+3. Show memory usage 
+4. Show logged-in user 
+5. Show process count 
+6. Exit 
+Enter your choice: 1 
+Wed Oct 21 09:21:45 IST 2026 
+  
+===== SYSTEM ADMIN MENU ===== 
+1. Show date and time 
+2. Show disk usage 
+3. Show memory usage 
+4. Show logged-in user 
+5. Show process count 
+6. Exit 
+Enter your choice: 3 
+Mem:            8029         494        7406          14         348        7535 
+  
+===== SYSTEM ADMIN MENU ===== 
+1. Show date and time 
+2. Show disk usage 
+3. Show memory usage 
+4. Show logged-in user 
+5. Show process count 
+6. Exit 
+Enter your choice: 4 
+root 
+  
+===== SYSTEM ADMIN MENU ===== 
+1. Show date and time 
+2. Show disk usage 
+3. Show memory usage 
+4. Show logged-in user 
+5. Show process count 
+6. Exit 
+Enter your choice: 6 
+Exiting...

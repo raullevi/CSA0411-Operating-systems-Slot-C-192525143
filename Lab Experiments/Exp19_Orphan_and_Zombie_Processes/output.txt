@@ -1,0 +1,9 @@
+Zombie demo: child 1813 exits now 
+Process status before wait(): 
+  PID  PPID STAT COMMAND 
+ 1813  1812 Z+   prog 
+Parent called wait(): zombie 1813 removed 
+  
+Orphan demo: child 1817, parent 1816 
+Parent 1816 exits, leaving its child as an orphan 
+After parent exit: child 1817 adopted by 1

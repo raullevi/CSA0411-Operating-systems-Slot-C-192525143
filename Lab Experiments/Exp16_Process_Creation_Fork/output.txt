@@ -1,0 +1,3 @@
+Before fork: PID = 1788 
+Child  : PID = 1789, Parent PID = 1788 
+Parent : PID = 1788, Child PID = 1789

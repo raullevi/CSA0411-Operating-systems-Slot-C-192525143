@@ -1,0 +1,4 @@
+Named pipe 'myfifo' created 
+Writer sending : Data sent through FIFO 
+Reader received: Data sent through FIFO 
+FIFO removed

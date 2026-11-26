@@ -1,0 +1,6 @@
+Parent sending SIGUSR1 to child 1908 
+Child received SIGUSR1: start the task 
+Parent sending SIGUSR2 to child 1908 
+Child received SIGUSR2: stop the task 
+Parent sending SIGTERM to child 1908 
+Child terminated by signal 15

@@ -1,0 +1,13 @@
+Log file      : app.log 
+Total lines   : 7 
+INFO lines    : 3 
+WARNING lines : 1 
+ERROR lines   : 3 
+  
+Error lines with line numbers: 
+3:2025-08-01 10:05:40 ERROR Database connection failed 
+5:2025-08-01 10:06:30 ERROR Database connection failed 
+6:2025-08-01 10:10:11 ERROR File not found: config.ini 
+  
+Most frequent error: 
+      2 Database connection failed

@@ -1,0 +1,11 @@
+Group oslab created 
+User student2 created 
+User student2 added to group oslab 
+User details: 
+uid=30034(student2) gid=30035(student2) groups=30035(student2),30034(oslab) 
+oslab:x:30034:student2 
+Account student2 locked 
+student2 L 2026-10-21 0 99999 7 -1 
+User student2 deleted 
+Group oslab deleted 
+id: ‘student2’: no such user
